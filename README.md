@@ -24,7 +24,7 @@ subscription, virtual-account, …) follow the same auth + signature model and w
 
 ### Claude Code (plugin marketplace)
 ```
-/plugin marketplace add appotapay/appotapay-skills
+/plugin marketplace add appotapay-skills
 /plugin install appotapay@appotapay-skills
 ```
 
