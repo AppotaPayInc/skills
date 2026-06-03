@@ -1,0 +1,28 @@
+{
+  "$schema": "https://agentskills.io/schema/index.json",
+  "version": "1.0",
+  "publisher": {
+    "name": "AppotaPay",
+    "url": "https://docs.appotapay.com"
+  },
+  "skills": [
+    {
+      "name": "appotapay",
+      "description": "Router for integrating the AppotaPay payment gateway. Routes to auth and payment sub-skills.",
+      "path": "/skills/appotapay/SKILL.md",
+      "version": "0.1.0"
+    },
+    {
+      "name": "appotapay-auth",
+      "description": "Build the AppotaPay X-APPOTAPAY-AUTH HS256 JWT and sign request parameters.",
+      "path": "/skills/appotapay-auth/SKILL.md",
+      "version": "0.1.0"
+    },
+    {
+      "name": "appotapay-payment",
+      "description": "AppotaPay standard payment flow: create order, checkout, verify IPN/redirect, status, refund.",
+      "path": "/skills/appotapay-payment/SKILL.md",
+      "version": "0.1.0"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "appotapay",
+  "description": "Standard integration skills for the AppotaPay payment gateway: JWT (X-APPOTAPAY-AUTH) auth, request signing, create payment + checkout, IPN/redirect signature verification, transaction status, and refund.",
+  "version": "0.1.0",
+  "author": {
+    "name": "AppotaPay",
+    "email": "developer@appotapay.com"
+  },
+  "homepage": "https://docs.appotapay.com",
+  "repository": "https://github.com/appotapay/appotapay-skills",
+  "license": "MIT"
+}
