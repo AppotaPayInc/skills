@@ -13,7 +13,7 @@
       "displayName": "AppotaPay Integration Skills",
       "description": "Integrate AppotaPay (JWT auth, create payment, IPN/redirect verification, status, refund) following the official docs.",
       "homepage": "https://docs.appotapay.com",
-      "repository": "https://github.com/quangnd-appotapay/appotapay-skills",
+      "repository": "https://github.com/AppotaPayInc/skills",
       "license": "MIT",
       "category": "payments",
       "tags": ["payment", "appotapay", "fintech", "vietnam", "checkout", "ipn"]
