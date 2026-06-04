@@ -7,6 +7,12 @@
   },
   "skills": [
     {
+      "name": "appotapay-suite",
+      "description": "Install-all entry skill. Bundles and routes to every AppotaPay skill at once (router, auth, payment).",
+      "path": "/SKILL.md",
+      "version": "0.1.0"
+    },
+    {
       "name": "appotapay",
       "description": "Router for integrating the AppotaPay payment gateway. Routes to auth and payment sub-skills.",
       "path": "/skills/appotapay/SKILL.md",
