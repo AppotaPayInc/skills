@@ -24,13 +24,13 @@ subscription, virtual-account, …) follow the same auth + signature model and w
 
 ### Claude Code (plugin marketplace)
 ```
-/plugin marketplace add quangnd-appotapay/appotapay-skills
+/plugin marketplace add AppotaPayInc/skills
 /plugin install appotapay@appotapay-skills
 ```
 
 ### Any agent (Agent Skills CLI)
 ```
-npx skills add https://github.com/quangnd-appotapay/appotapay-skills
+npx skills add https://github.com/AppotaPayInc/skills
 ```
 
 ### Manual
