@@ -12,6 +12,7 @@ IPN/redirect signature, check status, and refund.
 
 | Skill | Purpose |
 |-------|---------|
+| `appotapay-suite` | **Install-all entry** (root `SKILL.md`) — bundles and routes to every skill below, so installing once gives you the whole set (no picking skills one by one) |
 | `appotapay` | Router — overview, credentials, base URLs, and which sub-skill to use |
 | `appotapay-auth` | Build the HS256 JWT (`X-APPOTAPAY-AUTH`) and sign requests. Scripts: Node / Python / PHP |
 | `appotapay-payment` | Create payment → checkout → **verify IPN/redirect** → status → refund. Scripts: Node / Python / PHP |
@@ -32,6 +33,8 @@ subscription, virtual-account, …) follow the same auth + signature model and w
 ```
 npx skills add https://github.com/AppotaPayInc/skills
 ```
+The root `appotapay-suite` skill is the entry point, so this pulls **all** skills at once — you don't
+pick them individually.
 
 ### Manual
 Copy the folders under `skills/` into your agent's skills directory, e.g.
