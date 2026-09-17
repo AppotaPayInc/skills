@@ -2,6 +2,8 @@
 
 # Instant Payment Notification
 
+## Instant Payment Notification
+
 > Partner xây dựng một URL IPN để nhận kết quả thanh toán. AppotaPay thực hiện request kèm params đến IPN của Partner khi có giao dịch thanh toán.
 
 ## IPN

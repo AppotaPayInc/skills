@@ -2,6 +2,8 @@
 
 # Charge: Get
 
+## Charge: Get
+
 Bạn có thể sử dụng API để xem chi tiết thông tin giao dịch.
 
 ### EndPoint

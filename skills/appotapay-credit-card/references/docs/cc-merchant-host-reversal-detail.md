@@ -2,6 +2,8 @@
 
 # Reversal Detail
 
+## Reversal Detail
+
 Bạn có thể sử dụng API để xem thông tin chi tiết lệnh Huỷ uỷ quyền
 
 ### EndPoint

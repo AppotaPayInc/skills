@@ -2,6 +2,8 @@
 
 # API Refresh Token
 
+## API Refresh Token
+
 API này được sử dụng để lấy lại ACCESS_TOKEN trong trường hợp ACCESS_TOKEN bị hết hạn. Sau khi gọi lấy refresh token thành công, refresh token cũ sẽ không còn hiệu lực
 
 ### EndPoint

@@ -2,6 +2,8 @@
 
 # Cycle callback
 
+## Cycle callback
+
 Hệ thống AppotaPay callback kết quả của cycle cho hệ thống của đối tác
 
 - Sử dụng tham số `signature` để kiểm tra tính toàn vẹn của dữ liệu nhận được, phía đối tác tạo ra signature từ dữ liệu nhận được từ AppotaPay sau đó so sánh với tham số `signature` AppotaPay gửi sang.

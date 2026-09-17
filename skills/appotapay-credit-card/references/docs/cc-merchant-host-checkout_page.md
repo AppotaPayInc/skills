@@ -4,6 +4,8 @@
 
 ## Tổng quan
 
+## Tổng quan
+
 - Trên Webiste, ứng dụng phía đối tác sau khi khách hàng lựa chọn dịch vụ hoặc sản phẩm và chọn thanh toán qua cổng thanh toán của AppotaPay.
 - Server của đối tác gọi qua API của AppotaPay để tạo thông tin giao dịch và lấy được URL thanh toán
 - Sau khi nhận được kết quả, website, ứng dụng phía đối tác điều hướng khách hàng tới URL trang thanh toán.

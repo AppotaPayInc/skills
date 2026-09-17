@@ -2,6 +2,8 @@
 
 # API Đóng tài khoản thu hộ
 
+## API Đóng tài khoản thu hộ
+
 Endpoint: `/api/v1/service/ebill/close`
 
 Method: `POST`

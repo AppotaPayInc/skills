@@ -2,6 +2,8 @@
 
 # API Deactive plan
 
+## API Deactive plan
+
 Endpoint: `/api/v1/subs/plans/{planId}/deactivate`
 
 Method: `POST`

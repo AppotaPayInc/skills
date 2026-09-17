@@ -2,6 +2,8 @@
 
 # API Lấy danh sách giao dịch của 1 hoá đơn
 
+## API Lấy danh sách giao dịch của 1 hoá đơn
+
 Endpoint: `/api/v1/service/ebill/{billCode}/transactions`
 
 Method: `GET`

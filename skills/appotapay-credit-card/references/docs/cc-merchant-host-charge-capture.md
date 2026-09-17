@@ -2,6 +2,8 @@
 
 # Charge: Capture
 
+## Charge: Capture
+
 Bạn có thể capture trong vòng 7 ngày sau khi authorization thành công
 
 ### EndPoint

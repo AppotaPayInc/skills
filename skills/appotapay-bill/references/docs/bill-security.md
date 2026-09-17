@@ -2,6 +2,8 @@
 
 # Bảo mật
 
+## Bảo mật
+
 ## 1. Hướng dẫn tạo signature API Truy vấn thông tin hoá đơn
 
 ### Ví dụ tham số truyền lên API

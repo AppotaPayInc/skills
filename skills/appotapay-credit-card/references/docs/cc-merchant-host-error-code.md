@@ -2,6 +2,8 @@
 
 # Bảng mã lỗi
 
+## Bảng mã lỗi
+
 | Mã lỗi | Mô tả |
 | --- | --- |
 | 0 | Thành công |

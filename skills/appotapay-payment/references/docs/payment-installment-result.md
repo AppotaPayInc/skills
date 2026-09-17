@@ -2,6 +2,8 @@
 
 # Xử lý kết quả trả góp
 
+## Xử lý kết quả trả góp
+
 Sau khi giao dịch thanh toán thẻ tín dụng được chuyển đổi sang hình thức trả góp, AppotaPay sẽ gửi thông báo kết quả qua API URL của phía đối tác đã đăng ký để đối tác cập nhật trạng thái giao dịch trả góp.
 
 - Cần kiểm tra kĩ thông số trường `transaction.status`, `transaction.paymentAmount` & `signature` phải hợp lệ trước khi xác nhận giao dịch trả góp thành công

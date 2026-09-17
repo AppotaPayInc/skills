@@ -2,6 +2,8 @@
 
 # API Force cycle attempt
 
+## API Force cycle attempt
+
 Endpoint: `/api/v1/subs/plans/{planId}/cycles/{cycleId}/force-attempt`
 
 Method: `POST`

@@ -2,6 +2,8 @@
 
 # Giới thiệu tổng quan
 
+## Giới thiệu tổng quan
+
 - Khách hàng chọn sản phẩm/dịch vụ ở cửa hàng và chọn thanh toán qua máy POS
 - Máy POS xử lý tạo giao dịch, điều hướng tới màn thanh toán qua thẻ hoặc quét mã QR
 - Sau khi có kết quả thanh toán sẽ xử lý thông báo kết quả giao dịch

@@ -2,6 +2,8 @@
 
 # Error Code API
 
+## Error Code API
+
 Bảng mã lỗi cho các API
 
 ### EndPoint

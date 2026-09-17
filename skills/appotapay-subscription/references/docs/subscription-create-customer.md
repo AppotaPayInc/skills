@@ -2,6 +2,8 @@
 
 # API Tạo customer
 
+## API Tạo customer
+
 Endpoint: `/api/v1/customers`
 
 Method: `POST`

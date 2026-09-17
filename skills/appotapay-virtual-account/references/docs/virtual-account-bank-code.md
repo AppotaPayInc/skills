@@ -2,6 +2,8 @@
 
 # Bảng mã ngân hàng
 
+## Bảng mã ngân hàng
+
 > Phụ lục bảng mã ngân hàng thu hộ
 
 ## Bảng mã

@@ -2,6 +2,8 @@
 
 # API Chi tiết hoá đơn
 
+## API Chi tiết hoá đơn
+
 Endpoint: `/api/v1/service/ebill/detail/{billCode}`
 
 Method: `GET`

@@ -2,6 +2,8 @@
 
 # API Lấy danh sách cycle của plan
 
+## API Lấy danh sách cycle của plan
+
 Endpoint: `/api/v1/subs/plans/{planId}/cycles`
 
 Method: `GET`

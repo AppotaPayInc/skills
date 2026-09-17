@@ -2,6 +2,8 @@
 
 # Refund callback
 
+## Refund callback
+
 Sau khi yêu cầu hoàn tiền, hệ thống AppotaPay callback kết quả cho hệ thống của đối tác
 
 - Sử dụng tham số `signature` để kiểm tra tính toàn vẹn của dữ liệu nhận được, phía đối tác tạo ra signature từ dữ liệu nhận được từ AppotaPay sau đó so sánh với tham số `signature` AppotaPay gửi sang.

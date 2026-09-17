@@ -2,6 +2,8 @@
 
 # API Lấy chi tiết cycle
 
+## API Lấy chi tiết cycle
+
 Endpoint: `/api/v1/subs/plans/{planId}/cycles/{cycleId}`
 
 Method: `GET`

@@ -2,6 +2,8 @@
 
 # API Cập nhật cycle
 
+## API Cập nhật cycle
+
 Endpoint: `/api/v1/subs/plans/{planId}/cycles/{cycleId}`
 
 Method: `PATCH`

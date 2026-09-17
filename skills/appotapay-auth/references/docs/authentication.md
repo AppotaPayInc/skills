@@ -2,6 +2,8 @@
 
 # Xác thực
 
+## Xác thực
+
 API của AppotaPay được tổ chức xung quanh REST để rõ ràng và dễ hiểu. Tất cả APIs trả về theo JSON format. Để truy cập được tới APIs của chúng tôi,
 bạn cần đăng ký tài khoản trên Partner Website của chúng tôi. Bạn có thể tạo và quản lý API Keys, API Secret Keys trong mục Quản lý Ứng dụng
 

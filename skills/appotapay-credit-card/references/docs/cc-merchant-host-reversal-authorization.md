@@ -2,6 +2,8 @@
 
 # Reverse Authorization
 
+## Reverse Authorization
+
 Bạn có thể sử dụng API để huỷ uỷ quyền, với các giao dịch có trạng thái `AUTHORIZED` và chưa thực hiện capture.
 
 Thời gian tối đa để thực hiện huỷ uỷ quyền là T+7 từ thời điểm uỷ quyền (authorization) thành công. Nếu giao dịch đó sau 7 ngày không được capture hoặc reversal, chúng tôi sẽ thực hiện huỷ uỷ quyền.

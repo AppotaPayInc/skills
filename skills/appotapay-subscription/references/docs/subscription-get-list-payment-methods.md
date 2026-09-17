@@ -2,6 +2,8 @@
 
 # API Lấy danh sách payment method
 
+## API Lấy danh sách payment method
+
 Endpoint: `/api/v1/subs/payment-methods`
 
 Method: `GET`

@@ -2,6 +2,8 @@
 
 # API Lấy chi tiết plan
 
+## API Lấy chi tiết plan
+
 Endpoint: `/api/v1/subs/plans/{planRefId}`
 
 Method: `GET`

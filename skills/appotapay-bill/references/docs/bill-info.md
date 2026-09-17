@@ -2,6 +2,8 @@
 
 # API Truy vấn thông tin hoá đơn
 
+## API Truy vấn thông tin hoá đơn
+
 Endpoint: `/api/v1/service/bill/check`
 
 Method: `POST`

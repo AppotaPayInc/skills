@@ -2,6 +2,8 @@
 
 # API Lấy chi tiết customer
 
+## API Lấy chi tiết customer
+
 Endpoint: `/api/v1/customers/{customerRefId}`
 
 Method: `GET`

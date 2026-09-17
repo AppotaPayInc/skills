@@ -2,6 +2,8 @@
 
 # Bảng mã ngân hàng & phương thức thanh toán
 
+## Bảng mã ngân hàng & phương thức thanh toán
+
 ## Bảng mã phương thức thanh toán
 
 | No. | Mã | Mô tả |

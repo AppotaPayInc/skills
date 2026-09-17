@@ -2,6 +2,8 @@
 
 # API Cập nhật plan
 
+## API Cập nhật plan
+
 Endpoint: `/api/v1/subs/plans/{planId}`
 
 Method: `PATCH`

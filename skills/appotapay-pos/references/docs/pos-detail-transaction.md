@@ -2,6 +2,8 @@
 
 # API Chi tiết giao dịch
 
+## API Chi tiết giao dịch
+
 Endpoint: `/api/v2/partner/orders/transaction/:partner_ref_id`
 
 Method: `GET`

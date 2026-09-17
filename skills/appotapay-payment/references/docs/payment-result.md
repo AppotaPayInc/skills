@@ -2,6 +2,8 @@
 
 # Xử lý kết quả thanh toán
 
+## Xử lý kết quả thanh toán
+
 Sau khi khách hàng hoàn tất quá trình thanh toán, hệ thống AppotaPay thông báo kết quả cho hệ thống của đối tác qua 2 hình thức
 
 - Cần kiểm tra kĩ thông số trường status, orderAmount & signature phải hợp lệ trước khi xác nhận giao dịch thành công

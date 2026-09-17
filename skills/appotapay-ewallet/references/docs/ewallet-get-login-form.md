@@ -2,6 +2,8 @@
 
 # Authentication Link
 
+## Authentication Link
+
 Backend hệ thống của Partner trả về Authentication Link này để mở ra login form. Khách hàng nhập thông tin trên login form để liên kết tài khoản Ví AppotaPay.
 
 ### EndPoint

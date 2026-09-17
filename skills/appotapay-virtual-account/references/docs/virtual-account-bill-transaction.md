@@ -2,6 +2,8 @@
 
 # API Lấy danh sách giao dịch
 
+## API Lấy danh sách giao dịch
+
 Endpoint: `/api/v1/service/ebill/transactions`
 
 Method: `GET`

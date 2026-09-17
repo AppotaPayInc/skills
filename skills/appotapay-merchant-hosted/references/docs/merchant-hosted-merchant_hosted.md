@@ -4,6 +4,8 @@
 
 ## Tổng quan
 
+## Tổng quan
+
 Khi doanh nghiệp của bạn kết nối mô hình Merchant-hosted (Thanh toán thẻ/ tài khoản nội địa), bạn có thể cho phép khách hàng nhập thông tin thanh toán trên trang của bạn và thực hiện các bước tiếp theo. Tài liệu này cung cấp đầy đủ về cách thức kết nối thanh toán thẻ/ tài khoản nội địa cho doanh nghiệp của bạn.
 
 ## Mô hình thanh toán

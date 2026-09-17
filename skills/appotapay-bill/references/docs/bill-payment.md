@@ -2,6 +2,8 @@
 
 # API Thanh toán hoá đơn
 
+## API Thanh toán hoá đơn
+
 Endpoint: `/api/v1/service/bill/pay`
 
 Method: `POST`

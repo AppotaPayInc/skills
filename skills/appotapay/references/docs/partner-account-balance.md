@@ -2,6 +2,8 @@
 
 # Truy vấn số dư tài khoản
 
+## Truy vấn số dư tài khoản
+
 Môi trường kết nối
 
 | Môi trường | Domain |

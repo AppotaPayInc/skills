@@ -2,6 +2,8 @@
 
 # API Xác Nhận Thanh Toán
 
+## API Xác Nhận Thanh Toán
+
 API được dùng để xác thực giao dịch thanh toán trong trường hợp giao dịch cần xác thực đa thành tố.
 
 ### EndPoint

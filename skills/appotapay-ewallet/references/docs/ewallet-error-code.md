@@ -2,6 +2,8 @@
 
 # Bảng mã lỗi
 
+## Bảng mã lỗi
+
 | Mã lỗi | Mô tả |
 | --- | --- |
 | 1 | Thông tin yêu cầu thiếu hoặc không hợp lệ |

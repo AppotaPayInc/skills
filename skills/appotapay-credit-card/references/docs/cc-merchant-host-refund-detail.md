@@ -2,6 +2,8 @@
 
 # Refund: Detail
 
+## Refund: Detail
+
 Bạn có thể sử dụng API để xem chi tiết thông tin giao dịch Hoàn trả
 
 ### EndPoint

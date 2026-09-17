@@ -2,6 +2,8 @@
 
 # API Tạo plan
 
+## API Tạo plan
+
 Endpoint: `/api/v1/subs/plans`
 
 Method: `POST`

@@ -2,6 +2,8 @@
 
 # API Cancel cycle
 
+## API Cancel cycle
+
 Endpoint: `/api/v1/subs/plans/{planId}/cycles/{cycleId}/cancel`
 
 Method: `POST`

@@ -2,6 +2,8 @@
 
 # API kiểm tra thông tin thuê bao
 
+## API kiểm tra thông tin thuê bao
+
 Endpoint: `/api/v1/service/topup/{phoneNumber}/info`
 
 Method: `GET`

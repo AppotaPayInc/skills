@@ -2,6 +2,8 @@
 
 # API Lấy chi tiết payment method
 
+## API Lấy chi tiết payment method
+
 Endpoint: `/api/v1/subs/payment-methods/{paymentMethodRefId}`
 
 Method: `GET`

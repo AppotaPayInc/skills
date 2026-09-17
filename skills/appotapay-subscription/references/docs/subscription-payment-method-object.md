@@ -2,6 +2,8 @@
 
 # Payment Method Object
 
+## Payment Method Object
+
 Payment method object đề cập đến nguồn tiền hoặc công cụ thanh toán được sử dụng để thanh toán. Mỗi object có cấu trúc như sau:
 
 | Tham số | Kiểu dữ liệu | Mô tả |

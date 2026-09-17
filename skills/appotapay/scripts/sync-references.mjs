@@ -35,6 +35,7 @@ const OWNERS = [
   ['security', 'appotapay-auth'],
   ['partner/', 'appotapay'],
   ['errors', 'appotapay'],
+  ['skills', 'appotapay'],   // the docs page describing this skill set itself
 ];
 
 const ownerOf = (p) => OWNERS.find(([prefix]) => p === prefix.replace(/\/$/, '') || p.startsWith(prefix))?.[1];

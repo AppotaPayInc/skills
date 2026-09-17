@@ -2,6 +2,8 @@
 
 # Payment method action callback
 
+## Payment method action callback
+
 Sau khi tạo payment method và khách thực hiện xác thực thông tin, hệ thống AppotaPay callback kết quả của requires action cho đối tác
 
 - Sử dụng tham số `signature` để kiểm tra tính toàn vẹn của dữ liệu nhận được, phía đối tác tạo ra signature từ dữ liệu nhận được từ AppotaPay sau đó so sánh với tham số `signature` AppotaPay gửi sang.

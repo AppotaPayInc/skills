@@ -2,6 +2,8 @@
 
 # Cycle Object
 
+## Cycle Object
+
 Cycle object đề cập đến một trường hợp cụ thể về hành động của gói đăng ký định kỳ. Cycle object được tạo từ plan object trong đó các hành vi thanh toán định được xác định.
 
 Mỗi object có cấu trúc như sau:

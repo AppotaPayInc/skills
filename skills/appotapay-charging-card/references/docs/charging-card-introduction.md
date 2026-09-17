@@ -2,6 +2,8 @@
 
 # Giới thiệu tổng quan
 
+## Giới thiệu tổng quan
+
 Tài liệu kết nối gạch thẻ AppotaCard
 
 ### Bảo mật

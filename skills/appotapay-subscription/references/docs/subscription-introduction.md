@@ -8,6 +8,8 @@ Khi doanh nghiệp của bạn thực hiện kết nối mô hình Merchant-host
 
 ## Mô hình kết nối
 
+## Mô hình kết nối
+
 | STT | Thực hiện | Bước chính | Mô tả |
 | --- | --- | --- | --- |
 | 1 | End user | Khởi tạo giao dịch | Trên trang của Merchant, thực hiện Nhập thông tin cá nhân |
@@ -95,6 +97,8 @@ cycle tiếp theo (khởi tạo thành công) - event: subscription.cycle.create
 - Trên Webiste hoặc ứng dụng phía đối tác, sau khi khách hàng lựa chọn dịch vụ thanh toán định kỳ và chọn thanh toán qua cổng thanh toán của AppotaPay.
 - Server của đối tác gọi qua API của AppotaPay để tạo thông tin giao dịch và nhận URL thanh toán
 - Sau khi nhận thông tin, đối tác điều hướng khách hàng tới URL thanh toán để hoàn thành thanh toán dịch vụ
+
+## Mô hình kết nối
 
 ## Mô hình kết nối
 

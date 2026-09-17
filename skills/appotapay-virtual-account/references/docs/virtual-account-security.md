@@ -2,6 +2,8 @@
 
 # Bảo mật
 
+## Bảo mật
+
 ## 1. Hướng dẫn tạo signature API Tạo hoá đơn thanh toán
 
 ### Ví dụ tham số truyền lên API

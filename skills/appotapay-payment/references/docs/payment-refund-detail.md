@@ -2,6 +2,8 @@
 
 # Kiểm tra giao dịch hoàn tiền
 
+## Kiểm tra giao dịch hoàn tiền
+
 Endpoint: `GET` `/api/v2/transaction/refund/{refundRefId}`
 
 ### Header Params

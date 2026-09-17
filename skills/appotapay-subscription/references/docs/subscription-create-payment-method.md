@@ -2,6 +2,8 @@
 
 # API Tạo payment method
 
+## API Tạo payment method
+
 Endpoint: `/api/v1/subs/payment-methods`
 
 Method: `POST`

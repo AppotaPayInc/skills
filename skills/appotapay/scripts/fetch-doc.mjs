@@ -19,7 +19,10 @@ const DOCS = (process.env.DOCS || 'https://docs.appotapay.com').replace(/\/$/, '
 async function get(url) {
   const res = await fetch(url, { headers: { 'user-agent': 'appotapay-skills/fetch-doc' } });
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-  return res.text();
+  // Some doc pages are served with stray NUL and other C0 control bytes inside words
+  // (e.g. "v\0\0ới"). Left in, they make the Markdown snapshot a binary file to git and
+  // grep, so `git diff` after a sync becomes unreviewable. Strip them at the source.
+  return (await res.text()).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, '');
 }
 
 /** Every doc path on the site, current version first. */

@@ -6,8 +6,12 @@ Thanh toán ví điện tử liên kết là dịch vụ cho phép Đối tác t
 
 ## Các bước thực hiện
 
+## Các bước thực hiện
+
 - Bước 1: Kết nối liên kết ví AppotaPay, Vui lòng xem tại đây
 - Bước 2: Kết nối thanh toán
+
+## Tổng quan
 
 ## Tổng quan
 

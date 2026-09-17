@@ -2,6 +2,8 @@
 
 # API Lấy chi tiết hoàn tiền
 
+## API Lấy chi tiết hoàn tiền
+
 Endpoint: `/v1/subs/refunds/{refundRefId}`
 
 Method: `GET`

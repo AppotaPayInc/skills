@@ -2,6 +2,8 @@
 
 # Customer Object
 
+## Customer Object
+
 Customer object là một cấu trúc dữ liệu tiêu chuẩn để chứa thông tin liên quan đến một trong những khách hàng của bạn.
 
 Khi một customer object được trả trong các endpoint của phần này, nội dung phản hồi sẽ chứa Đối tượng khách hàng. Mỗi đối tượng có cấu trúc như sau:

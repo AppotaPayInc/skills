@@ -2,6 +2,8 @@
 
 # API Cập nhật customer
 
+## API Cập nhật customer
+
 Endpoint: `/api/v1/customers/{customerId}`
 
 Method: `PATCH`

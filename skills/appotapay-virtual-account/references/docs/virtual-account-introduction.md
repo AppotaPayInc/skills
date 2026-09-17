@@ -2,6 +2,8 @@
 
 # Giới thiệu tổng quan
 
+## Giới thiệu tổng quan
+
 Tài liệu cung cấp cho đối tác các thông tin kết nối kỹ thuật tới cổng thu hộ qua tài khoản ảo.
 
 ## Mô hình kết nối

@@ -2,6 +2,8 @@
 
 # API Huỷ Liên Kết
 
+## API Huỷ Liên Kết
+
 ### EndPoint
 
 `POST` `/api/v1/users/app/destroy`

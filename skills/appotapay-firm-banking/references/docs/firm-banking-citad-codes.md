@@ -2,6 +2,8 @@
 
 # Danh sách mã citad
 
+## Danh sách mã citad
+
 | Citad code | Bank code | Bank name | Branch name | City code |
 | --- | --- | --- | --- | --- |
 | 1101011 | SBV | Ngân hàng Nhà nuoc Viet Nam | NHNN VU TAI CHINH - KE TOAN | 1 |
@@ -170,7 +172,7 @@
 | 1305004 | EXIMBANK | Ngân hàng thuong mai co phan Xuat Nhap Khau Viet Nam | Thu Dô | 1 |
 | 1305005 | EXIMBANK | Ngân hàng thuong mai co phan Xuat Nhap Khau Viet Nam | Ngân hàng Xuat nhap khau Viet Nam Cau Giay | 1 |
 | 1305006 | EXIMBANK | Ngân hàng thuong mai co phan Xuat Nhap Khau Viet Nam | Ngân hàng Xuat nhap khau Viet Nam Dong Da | 1 |
-| 1306001 | NAMABANK | Ng ân hàng TMCP Nam Á | Ngân hàng Nam Á Ha Noi | 1 |
+| 1306001 | NAMABANK | Ngân hàng TMCP Nam Á | Ngân hàng Nam Á Ha Noi | 1 |
 | 1307001 | ACB | Ngân hàng thuong mai co phan Á Châu | Ha Noi | 1 |
 | 1307004 | ACB | Ngân hàng thuong mai co phan Á Châu | Thang Long | 1 |
 | 1307500 | ACB | Ngân hàng thuong mai co phan Á Châu | Hà Noi | 1 |

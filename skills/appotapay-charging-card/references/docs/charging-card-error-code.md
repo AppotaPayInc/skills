@@ -2,6 +2,8 @@
 
 # Bảng mã lỗi
 
+## Bảng mã lỗi
+
 > Phụ lục bảng mã lỗi
 
 | Mã Lỗi | Mô tả |

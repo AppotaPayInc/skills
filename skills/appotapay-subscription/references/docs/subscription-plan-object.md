@@ -2,6 +2,8 @@
 
 # Plan Object
 
+## Plan Object
+
 Plan object sẽ gồm customer object, schedule object để thiết lập thanh toán định ký cho một người dùng cuối cụ thể.
 
 Mỗi object có cấu trúc như sau:

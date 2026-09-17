@@ -2,6 +2,8 @@
 
 # Bảng mã lỗi
 
+## Bảng mã lỗi
+
 > Phụ lục bảng mã lỗi
 
 Các mã lỗi bôi đỏ cần gọi API kiểm tra giao dịch để xác định trạng thái cuối của giao dịch

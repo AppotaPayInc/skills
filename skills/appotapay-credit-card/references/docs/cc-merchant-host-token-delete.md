@@ -2,6 +2,8 @@
 
 # Token Delete
 
+## Token Delete
+
 Xoá token đã tạo, thông tin token đã lưu trữ và liên kết với AppotaPay sẽ được xoá.
 
 ### EndPoint

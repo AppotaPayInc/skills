@@ -2,6 +2,8 @@
 
 # Check 3DS Enrollment
 
+## Check 3DS Enrollment
+
 Nếu bạn muốn xác thực thẻ với 3D-secure trước khi thực hiện thanh toán, bạn có sử dụng API này (có thể dùng thông tin thẻ hoặc token đã tạo trước đó (nếu có))
 
 ### EndPoint

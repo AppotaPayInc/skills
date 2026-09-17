@@ -2,6 +2,8 @@
 
 # Refund: Create
 
+## Refund: Create
+
 API refund có thể sử dụng khi khách hàng muốn hoàn trả lại giao dịch đã thanh toán thành công. Hoàn trả chỉ thực hiện được với các giao dịch có trạng thái `CAPTURED`
 
 Hệ thống AppotaPay cho phép thực hiện hoàn trả 1 phần và thực hiện hoàn trả nhiều lần với 1 giao dịch capture thành công, với điều kiện tổng tiền yêu cầu hoàn trả cần nhỏ hơn số tiền đã capture.

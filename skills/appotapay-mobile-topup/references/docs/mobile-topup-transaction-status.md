@@ -2,6 +2,8 @@
 
 # API Kiểm tra trạng thái giao dịch
 
+## API Kiểm tra trạng thái giao dịch
+
 Endpoint: `/api/v1/service/topup/transaction/{partnerRefId}`
 
 Method: `GET`
