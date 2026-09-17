@@ -1,7 +1,7 @@
 {
   "name": "appotapay",
-  "description": "Standard integration skills for the AppotaPay payment gateway: JWT (X-APPOTAPAY-AUTH) auth, request signing, create payment + checkout, IPN/redirect signature verification, transaction status, and refund.",
-  "version": "0.1.0",
+  "description": "Standard integration skills for the whole AppotaPay platform: JWT (X-APPOTAPAY-AUTH) auth and request signatures, hosted checkout, merchant-hosted domestic cards, international credit cards with 3DS, e-wallet linking, subscription billing, virtual accounts, interbank transfers, bill payment, mobile topup, buy card, charging card, and POS.",
+  "version": "0.2.0",
   "author": {
     "name": "AppotaPay",
     "email": "developer@appotapay.com"

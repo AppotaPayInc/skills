@@ -1,42 +1,147 @@
 #!/usr/bin/env node
-// Fetch a LIVE AppotaPay doc (llms-*.txt) so generated code matches the current spec.
+// Fetch a LIVE AppotaPay doc page and print it as Markdown, so generated code matches the
+// current spec. https://docs.appotapay.com is a Docusaurus site: there is no llms.txt / API
+// export, so pages are discovered through sitemap.xml and converted from HTML here.
 // No dependencies (Node >= 18, uses global fetch).
 //
-//   node fetch-doc.mjs index                 -> llms.txt (index of every v2.0 page)
-//   node fetch-doc.mjs full                  -> llms-full.txt (all v2.0 docs)
-//   node fetch-doc.mjs payment-payment       -> llms-v2.0-payment-payment-full.txt
-//   node fetch-doc.mjs <slug> --v 1.1        -> llms-v1.1-<slug>-full.txt
+//   node fetch-doc.mjs index                  -> list every doc path (from sitemap.xml)
+//   node fetch-doc.mjs index payment          -> only paths containing "payment"
+//   node fetch-doc.mjs payment/signature      -> that page, as Markdown
+//   node fetch-doc.mjs ewallet/request-payment
+//   node fetch-doc.mjs --html payment/refund  -> raw HTML instead of Markdown
 //   DOCS=https://docs.dev.appotapay.com node fetch-doc.mjs index
 //
-// <slug> = doc path with '/' replaced by '-' (see `index` to discover slugs).
+// Paths are exactly what the docs URL shows after the host. Paths with no version prefix are
+// the CURRENT version; `1.1/...` and `1.0/...` are the archived ones.
 
 const DOCS = (process.env.DOCS || 'https://docs.appotapay.com').replace(/\/$/, '');
 
-function urlFor(arg, version) {
-  if (arg === 'index') return version === '2.0' ? `${DOCS}/llms.txt` : `${DOCS}/llms-v${version}.txt`;
-  if (arg === 'full') return version === '2.0' ? `${DOCS}/llms-full.txt` : `${DOCS}/llms-v${version}-full.txt`;
-  return `${DOCS}/llms-v${version}-${arg}-full.txt`;
+async function get(url) {
+  const res = await fetch(url, { headers: { 'user-agent': 'appotapay-skills/fetch-doc' } });
+  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
+  return res.text();
 }
 
-export async function fetchDoc(arg = 'index', version = '2.0') {
-  const url = urlFor(arg, version);
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-  return { url, text: await res.text() };
+/** Every doc path on the site, current version first. */
+export async function listPaths(filter = '') {
+  const xml = await get(`${DOCS}/sitemap.xml`);
+  const paths = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)]
+    .map((m) => m[1].replace(`${DOCS}/`, '').replace(/\/$/, ''))
+    .filter((p) => p && p !== 'search')
+    .filter((p) => !filter || p.includes(filter));
+  const archived = (p) => /^1\.\d+\//.test(p);
+  return paths.sort((a, b) => (archived(a) - archived(b)) || a.localeCompare(b));
+}
+
+// ---------- HTML -> Markdown (scoped to what Docusaurus emits) ----------
+
+const decode = (s) =>
+  s
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'").replace(/&nbsp;/g, ' ').replace(/&hellip;/g, '…')
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCharCode(parseInt(h, 16)))
+    .replace(/&#(\d+);/g, (_, d) => String.fromCharCode(+d))
+    .replace(/&amp;/g, '&');
+
+const stripTags = (s) => decode(s.replace(/<[^>]+>/g, '')).replace(/[ \t ]+/g, ' ').trim();
+
+/** Cell text: keep inline code, drop everything else. */
+function inline(html) {
+  return decode(
+    html
+      .replace(/<br\s*\/?>/gi, ' ')
+      .replace(/<code[^>]*>([\s\S]*?)<\/code>/gi, (_, c) => '`' + stripTags(c) + '`')
+      .replace(/<[^>]+>/g, '')
+  )
+    .replace(/[ \t ]+/g, ' ')
+    .trim()
+    .replace(/\|/g, '\\|');
+}
+
+function tableToMd(html) {
+  const rows = [...html.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)].map((r) =>
+    [...r[1].matchAll(/<t[hd][^>]*>([\s\S]*?)<\/t[hd]>/gi)].map((c) => inline(c[1]))
+  );
+  if (!rows.length) return '';
+  const width = Math.max(...rows.map((r) => r.length));
+  const pad = (r) => [...r, ...Array(width - r.length).fill('')];
+  const [head, ...body] = rows;
+  return [
+    `| ${pad(head).join(' | ')} |`,
+    `| ${Array(width).fill('---').join(' | ')} |`,
+    ...body.map((r) => `| ${pad(r).join(' | ')} |`),
+  ].join('\n');
+}
+
+function codeToMd(openTag, html) {
+  // Docusaurus wraps each line in <div class="token-line"> ending with <br>; tokens are spans.
+  const text = decode(
+    html
+      .replace(/<br\s*\/?>\s*<\/div>/gi, '\n')
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<\/div>/gi, '\n')
+      .replace(/<[^>]+>/g, '')
+  ).replace(/\n{3,}/g, '\n\n');
+  const lang = /language-([\w-]+)/.exec(openTag)?.[1] || '';
+  return '```' + lang + '\n' + text.replace(/\s+$/, '') + '\n```';
+}
+
+function listToMd(html, ordered) {
+  return [...html.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)]
+    .map((m, i) => `${ordered ? `${i + 1}.` : '-'} ${inline(m[1])}`)
+    .join('\n');
+}
+
+export function htmlToMarkdown(html) {
+  const article = /<article[^>]*>([\s\S]*?)<\/article>/i.exec(html)?.[1] ?? html;
+  const out = [];
+  // Walk the block-level elements in document order.
+  const blocks = /<(h[1-6]|table|pre|ul|ol|p|blockquote)(\s[^>]*)?>([\s\S]*?)<\/\1>/gi;
+  for (const m of article.matchAll(blocks)) {
+    const [, tag, attrs = '', body] = m;
+    const t = tag.toLowerCase();
+    if (/^h[1-6]$/.test(t)) {
+      const text = stripTags(body).replace(/​/g, '').replace(/​$/, '').trim();
+      if (text) out.push(`${'#'.repeat(+t[1])} ${text}`);
+    } else if (t === 'table') out.push(tableToMd(body));
+    else if (t === 'pre') out.push(codeToMd(attrs, body));
+    else if (t === 'ul' || t === 'ol') {
+      if (/breadcrumb|table-of-contents|tabList|pagination/i.test(attrs)) continue; // site chrome
+      out.push(listToMd(body, t === 'ol'));
+    }
+    else if (t === 'blockquote') out.push(stripTags(body).split('\n').map((l) => `> ${l}`).join('\n'));
+    else {
+      const text = inline(body).replace(/\\\|/g, '|');
+      if (text) out.push(text);
+    }
+  }
+  return out.filter(Boolean).join('\n\n').replace(/\n{3,}/g, '\n\n') + '\n';
+}
+
+export async function fetchDoc(path) {
+  const url = `${DOCS}/${String(path).replace(/^\//, '')}`;
+  const html = await get(url);
+  return { url, html, markdown: `<!-- source: ${url} -->\n\n` + htmlToMarkdown(html) };
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const args = process.argv.slice(2);
-  const vIdx = args.indexOf('--v');
-  const version = vIdx !== -1 ? args[vIdx + 1] : '2.0';
-  const arg = args.find((a) => a !== '--v' && a !== version) || 'index';
-  fetchDoc(arg, version)
-    .then(({ url, text }) => {
-      process.stderr.write(`# fetched ${url}\n`);
-      process.stdout.write(text);
-    })
-    .catch((e) => {
-      process.stderr.write(String(e.message) + '\n');
-      process.exit(1);
-    });
+  const raw = args.includes('--html');
+  const rest = args.filter((a) => a !== '--html');
+  const [cmd, ...more] = rest;
+  const run = async () => {
+    if (!cmd || cmd === 'index') {
+      const paths = await listPaths(more[0] || '');
+      process.stdout.write(paths.join('\n') + '\n');
+      process.stderr.write(`# ${paths.length} pages from ${DOCS}/sitemap.xml\n`);
+      return;
+    }
+    const { url, html, markdown } = await fetchDoc(cmd);
+    process.stderr.write(`# fetched ${url}\n`);
+    process.stdout.write(raw ? html : markdown);
+  };
+  run().catch((e) => {
+    process.stderr.write(String(e.message) + '\n');
+    process.exit(1);
+  });
 }

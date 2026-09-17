@@ -1,44 +1,91 @@
 #!/usr/bin/env node
-// Maintainer tool: refresh the OFFLINE snapshot under each skill's references/ from the LIVE docs.
-// Writes the raw live llms-*.txt next to the hand-written references as `*.live.txt`, so reviewers
-// can diff the current spec against the curated reference before committing.
-// No dependencies (Node >= 18). Run from the repo root:  node skills/appotapay/scripts/sync-references.mjs
-import { writeFile, mkdir } from 'node:fs/promises';
+// Maintainer tool: refresh the OFFLINE snapshot under every skill's references/docs/ from the LIVE
+// docs at https://docs.appotapay.com. Pages are discovered from sitemap.xml and converted to
+// Markdown by fetch-doc.mjs, then routed to the skill that owns the product area.
+//
+// No dependencies (Node >= 18). Run from anywhere:
+//   node skills/appotapay/scripts/sync-references.mjs              # current version only
+//   node skills/appotapay/scripts/sync-references.mjs --archived   # also 1.1/ and 1.0/ pages
+//   DOCS=https://docs.dev.appotapay.com node skills/appotapay/scripts/sync-references.mjs
+//
+// Review `git diff` afterwards: the snapshot is the fallback, the live docs are the source of truth.
+import { writeFile, mkdir, rm } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { listPaths, fetchDoc } from './fetch-doc.mjs';
 
-const DOCS = (process.env.DOCS || 'https://docs.appotapay.com').replace(/\/$/, '');
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..', '..'); // repo root
 
-// page (llms file basename) -> where to drop the live copy for review
-const MAP = [
-  ['llms-v2.0-authentication-full.txt',            'skills/appotapay-auth/references/authentication.live.txt'],
-  ['llms-v2.0-security-full.txt',                  'skills/appotapay-auth/references/jwt.live.txt'],
-  ['llms-v2.0-payment-payment-signature-full.txt', 'skills/appotapay-auth/references/signature.live.txt'],
-  ['llms-v2.0-payment-payment-full.txt',           'skills/appotapay-payment/references/create-payment.live.txt'],
-  ['llms-v2.0-payment-payment-result-full.txt',    'skills/appotapay-payment/references/ipn.live.txt'],
-  ['llms-v2.0-payment-payment-status-full.txt',    'skills/appotapay-payment/references/status.live.txt'],
-  ['llms-v2.0-payment-refund-full.txt',            'skills/appotapay-payment/references/refund.live.txt'],
-  ['llms-v2.0-payment-payment-code-full.txt',      'skills/appotapay-payment/references/codes.live.txt'],
-  ['llms-v2.0-payment-payment-sandbox-full.txt',   'skills/appotapay-payment/references/sandbox.live.txt'],
+// doc-path prefix -> skill that owns it. First match wins; order matters (longest prefix first).
+const OWNERS = [
+  ['cc-merchant-host/', 'appotapay-credit-card'],
+  ['merchant-hosted/', 'appotapay-merchant-hosted'],
+  ['virtual-account/', 'appotapay-virtual-account'],
+  ['charging-card/', 'appotapay-charging-card'],
+  ['firm-banking/', 'appotapay-firm-banking'],
+  ['mobile-topup', 'appotapay-mobile-topup'],
+  ['subscription/', 'appotapay-subscription'],
+  ['buy-card/', 'appotapay-buy-card'],
+  ['ewallet/', 'appotapay-ewallet'],
+  ['payment', 'appotapay-payment'],
+  ['bill/', 'appotapay-bill'],
+  ['pos/', 'appotapay-pos'],
+  // shared / cross-cutting pages
+  ['authentication', 'appotapay-auth'],
+  ['security', 'appotapay-auth'],
+  ['partner/', 'appotapay'],
+  ['errors', 'appotapay'],
 ];
 
-let ok = 0, fail = 0;
-for (const [file, dest] of MAP) {
-  const url = `${DOCS}/${file}`;
-  try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const text = await res.text();
-    const out = resolve(ROOT, dest);
-    await mkdir(dirname(out), { recursive: true });
-    await writeFile(out, `# Synced from ${url}\n# Review and fold changes into the curated reference, then delete this file.\n\n${text}`);
-    console.log(`✓ ${dest}`);
-    ok++;
-  } catch (e) {
-    console.error(`✗ ${file}: ${e.message}`);
-    fail++;
+const ownerOf = (p) => OWNERS.find(([prefix]) => p === prefix.replace(/\/$/, '') || p.startsWith(prefix))?.[1];
+
+const CONCURRENCY = 6;
+
+async function main() {
+  const archived = process.argv.includes('--archived');
+  const all = await listPaths();
+  const paths = archived ? all : all.filter((p) => !/^1\.\d+\//.test(p));
+  const planned = paths.map((p) => ({ path: p, skill: ownerOf(p) }));
+
+  const orphans = planned.filter((x) => !x.skill);
+  if (orphans.length) {
+    process.stderr.write(
+      `! ${orphans.length} page(s) have no owning skill — add a prefix to OWNERS:\n` +
+        orphans.map((o) => `    ${o.path}\n`).join('')
+    );
   }
+
+  const targets = planned.filter((x) => x.skill);
+  // Wipe the snapshot dirs so pages removed upstream do not linger.
+  for (const skill of new Set(targets.map((t) => t.skill))) {
+    await rm(resolve(ROOT, 'skills', skill, 'references', 'docs'), { recursive: true, force: true });
+  }
+
+  let done = 0;
+  const queue = [...targets];
+  const worker = async () => {
+    for (let job = queue.shift(); job; job = queue.shift()) {
+      const slug = job.path.replace(/\//g, '-') || 'index';
+      const out = resolve(ROOT, 'skills', job.skill, 'references', 'docs', `${slug}.md`);
+      try {
+        const { markdown } = await fetchDoc(job.path);
+        await mkdir(dirname(out), { recursive: true });
+        await writeFile(out, markdown);
+        done++;
+      } catch (e) {
+        process.stderr.write(`FAIL ${job.path}: ${e.message}\n`);
+      }
+    }
+  };
+  await Promise.all(Array.from({ length: CONCURRENCY }, worker));
+
+  const perSkill = {};
+  for (const t of targets) perSkill[t.skill] = (perSkill[t.skill] || 0) + 1;
+  process.stderr.write(`\nsynced ${done}/${targets.length} pages\n`);
+  for (const [skill, n] of Object.entries(perSkill).sort()) process.stderr.write(`  ${String(n).padStart(3)}  ${skill}\n`);
 }
-console.log(`\nDone. ${ok} ok, ${fail} failed. Review the *.live.txt diffs, update the curated references, then remove the *.live.txt files.`);
-process.exit(fail ? 1 : 0);
+
+main().catch((e) => {
+  process.stderr.write(String(e.stack || e.message) + '\n');
+  process.exit(1);
+});
