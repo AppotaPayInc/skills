@@ -2,24 +2,38 @@
 
 Agent Skills that teach AI coding agents (Claude Code, Cursor, Copilot, and any
 [Agent Skills](https://agentskills.io)–compatible tool) how to integrate the
-**[AppotaPay](https://docs.appotapay.com) payment gateway** the standard, correct way.
+**[AppotaPay](https://docs.appotapay.com) payment platform** the standard, correct way.
 
-Install once, then ask your agent *"integrate AppotaPay payments"* (or *"tích hợp thanh toán AppotaPay"*)
-and it will follow the official flow: build the `X-APPOTAPAY-AUTH` JWT, create a payment, verify the
-IPN/redirect signature, check status, and refund.
+Coverage is the **whole documented platform** — every product area on docs.appotapay.com, not just
+the payment gateway.
+
+Install once, then ask your agent *"integrate AppotaPay payments"* (or *"tích hợp thanh toán
+AppotaPay"*, *"làm thanh toán định kỳ AppotaPay"*, *"gạch thẻ AppotaPay"*, …) and it will follow the
+official flow for that product.
 
 ## What's inside
 
 | Skill | Purpose |
-|-------|---------|
-| `appotapay-suite` | **Install-all entry** (root `SKILL.md`) — bundles and routes to every skill below, so installing once gives you the whole set (no picking skills one by one) |
-| `appotapay` | Router — overview, credentials, base URLs, and which sub-skill to use |
-| `appotapay-auth` | Build the HS256 JWT (`X-APPOTAPAY-AUTH`) and sign requests. Scripts: Node / Python / PHP |
-| `appotapay-payment` | Create payment → checkout → **verify IPN/redirect** → status → refund. Scripts: Node / Python / PHP |
+|---|---|
+| `appotapay-suite` | **Install-all entry** (root `SKILL.md`) — bundles and routes to every skill below |
+| `appotapay` | Router — credentials, base URLs per product, signature families, live-docs mechanism |
+| `appotapay-auth` | HS256 JWT (`X-APPOTAPAY-AUTH`) + all five signature schemes. Scripts: Node / Python / PHP |
+| `appotapay-payment` | Hosted checkout → IPN/redirect → status → refund → installment IPN. Scripts: Node / Python / PHP |
+| `appotapay-merchant-hosted` | Domestic card / bank account collected on **your** page |
+| `appotapay-credit-card` | International cards: token, 3DS, authorize, capture, reverse, refund |
+| `appotapay-ewallet` | Wallet OAuth2 linking + wallet/APoint payment |
+| `appotapay-subscription` | Recurring billing: customers, payment methods, plans, cycles, callbacks |
+| `appotapay-virtual-account` | Bank-transfer collection (thu hộ / ebill) + IPN |
+| `appotapay-firm-banking` | Interbank transfer out, beneficiary lookup, pending results |
+| `appotapay-bill` | Utility bill check → pay → status |
+| `appotapay-mobile-topup` | Airtime & data topup, product codes, subscriber info |
+| `appotapay-buy-card` | Buy prepaid card codes |
+| `appotapay-charging-card` | Scratch-card redemption (own SHA-256 + AES-128 scheme) |
+| `appotapay-pos` | POS/QR terminal payments (own host + `X-Signature`) |
 
 Each skill is a `SKILL.md` (kept short for fast loading) that routes to `references/` for full field
-tables and `scripts/` for runnable, dependency-light helpers. More product areas (e-wallet,
-subscription, virtual-account, …) follow the same auth + signature model and will be added over time.
+tables and `scripts/` for runnable, dependency-light helpers. Every skill also ships
+`references/docs/` — a verbatim Markdown snapshot of the live documentation pages for its area.
 
 ## Install
 
@@ -33,48 +47,65 @@ subscription, virtual-account, …) follow the same auth + signature model and w
 ```
 npx skills add https://github.com/AppotaPayInc/skills
 ```
-The root `appotapay-suite` skill is the entry point, so this pulls **all** skills at once — you don't
-pick them individually.
+The root `appotapay-suite` skill is the entry point, so this pulls **all** skills at once.
 
 ### Manual
-Copy the folders under `skills/` into your agent's skills directory, e.g.
-`~/.claude/skills/` (Claude Code) or `~/.cursor/skills/` (Cursor), or a project's `.claude/skills/`.
+Copy the folders under `skills/` into your agent's skills directory, e.g. `~/.claude/skills/`
+(Claude Code) or `~/.cursor/skills/` (Cursor), or a project's `.claude/skills/`.
 
 ## Usage
 
-After installing, the skills trigger automatically when you describe an AppotaPay task. You can also
-invoke them explicitly in Claude Code, e.g. `/appotapay:appotapay-payment`.
+The skills trigger automatically when you describe an AppotaPay task. You can also invoke one
+explicitly in Claude Code, e.g. `/appotapay:appotapay-subscription`.
 
 The agent will ask for / read these environment variables (never hard-code secrets):
 ```
 APPOTAPAY_PARTNER_CODE
 APPOTAPAY_API_KEY
-APPOTAPAY_SECRET_KEY     # server-side only — used to sign the JWT and verify callbacks
+APPOTAPAY_SECRET_KEY     # server-side only — signs the JWT, signs requests, verifies callbacks
 ```
-Sandbox test credentials are documented in `skills/appotapay-payment/references/sandbox.md`.
+Sandbox test credentials are in `skills/appotapay-payment/references/sandbox.md`; other product areas
+have their own sandbox accounts, documented in each skill's `references/docs/`.
+
+## Base URLs differ per product
+
+| Product area | Sandbox | Production |
+|---|---|---|
+| Payment, merchant-hosted, credit card, subscription, bill, topup, buy-card, charging-card, firm-banking, virtual-account | `gateway.dev.appotapay.com` | `gateway.appotapay.com` |
+| E-wallet OAuth | `ewallet.dev.appotapay.com` | `ewallet.appotapay.com` |
+| POS | `pos-gw.dev.appotapay.com` | `pos-gw.appotapay.com` |
 
 ## Security notes baked into the skills
 
 - JWT is built **server-side**, short-lived, with a unique `jti`.
-- IPN/redirect callbacks are **always** verified: `signature == HMAC_SHA256(data, SECRET_KEY)` (constant-time).
+- Callbacks are **always** verified before being trusted, with a constant-time comparison.
 - Order fulfillment is gated on the **status API = success** + amount match, with **idempotent** IPN handling.
+- Money-moving calls are **never retried blind** on a timeout — status is queried by `partnerRefId` first.
+- PCI scope is called out wherever raw card data would pass through your servers.
 
 ## Staying in sync with the docs (no stale data)
 
-The skills do **not** rely only on a frozen copy of the API. AppotaPay publishes always-current,
-machine-readable docs as `llms-*.txt` files (built from https://docs.appotapay.com). Each `SKILL.md`
-instructs the agent to **fetch the live doc and reconcile before generating code** — if the live doc
-and the bundled reference disagree, the live doc wins. So when the docs are updated, the agent picks
-up the change on the next run without re-publishing the skill.
+The skills do **not** rely only on a frozen copy of the API. Each `SKILL.md` instructs the agent to
+**fetch the live page and reconcile before generating code** — if the live doc and the bundled
+snapshot disagree, the live doc wins.
 
-- Live index of every page: `https://docs.appotapay.com/llms.txt`
-- A single page: `https://docs.appotapay.com/llms-v2.0-<slug>-full.txt`
-- Mechanism + URL scheme: `skills/appotapay/references/live-docs.md`
-- Fetch helper (no deps): `node skills/appotapay/scripts/fetch-doc.mjs <slug|index|full>`
+`docs.appotapay.com` is a Docusaurus site with **no** `llms.txt` and **no** OpenAPI export, so pages
+are discovered through `sitemap.xml` and converted from HTML by a bundled, dependency-free helper:
 
-The `references/*.md` are an **offline fallback** for speed/air-gapped use. Maintainers can refresh
-them from the live docs with `node skills/appotapay/scripts/sync-references.mjs` (writes `*.live.txt`
-diffs to review), then fold changes in.
+```bash
+node skills/appotapay/scripts/fetch-doc.mjs index                 # every doc path
+node skills/appotapay/scripts/fetch-doc.mjs index subscription    # filter
+node skills/appotapay/scripts/fetch-doc.mjs payment/signature     # one page, as Markdown
+```
+
+Maintainers refresh the whole offline snapshot with:
+
+```bash
+node skills/appotapay/scripts/sync-references.mjs              # current version (146 pages)
+node skills/appotapay/scripts/sync-references.mjs --archived   # also 1.1/ and 1.0/
+```
+It rewrites every `references/docs/` directory and reports any page whose path has no owning skill.
+Mechanism and URL scheme: `skills/appotapay/references/live-docs.md`.
 
 ## Source of truth
 

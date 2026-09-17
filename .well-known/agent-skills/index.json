@@ -8,27 +8,93 @@
   "skills": [
     {
       "name": "appotapay-suite",
-      "description": "Install-all entry skill. Bundles and routes to every AppotaPay skill at once (router, auth, payment).",
+      "description": "Install-all entry skill. Bundles and routes to every AppotaPay skill at once (router, auth, and all 12 product areas).",
       "path": "/SKILL.md",
-      "version": "0.1.0"
+      "version": "0.2.0"
     },
     {
       "name": "appotapay",
-      "description": "Router for integrating the AppotaPay payment gateway. Routes to auth and payment sub-skills.",
+      "description": "Router for the AppotaPay platform. Credentials, base URLs per product, signature families, live-docs mechanism, and routing to every sub-skill.",
       "path": "/skills/appotapay/SKILL.md",
-      "version": "0.1.0"
+      "version": "0.2.0"
     },
     {
       "name": "appotapay-auth",
-      "description": "Build the AppotaPay X-APPOTAPAY-AUTH HS256 JWT and sign request parameters.",
+      "description": "Build the AppotaPay X-APPOTAPAY-AUTH HS256 JWT and compute or verify all five request/callback signature schemes.",
       "path": "/skills/appotapay-auth/SKILL.md",
-      "version": "0.1.0"
+      "version": "0.2.0"
     },
     {
       "name": "appotapay-payment",
-      "description": "AppotaPay standard payment flow: create order, checkout, verify IPN/redirect, status, refund.",
+      "description": "AppotaPay hosted checkout: create payment, verify IPN/redirect, status, list, refund, installment IPN, delete card token.",
       "path": "/skills/appotapay-payment/SKILL.md",
-      "version": "0.1.0"
+      "version": "0.2.0"
+    },
+    {
+      "name": "appotapay-merchant-hosted",
+      "description": "Domestic card/bank-account payments collected on your own page (merchant-hosted).",
+      "path": "/skills/appotapay-merchant-hosted/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "name": "appotapay-credit-card",
+      "description": "International credit cards: tokenize, 3DS enrollment and validation, authorize, capture, reverse, refund.",
+      "path": "/skills/appotapay-credit-card/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "name": "appotapay-ewallet",
+      "description": "AppotaPay e-wallet OAuth2 linking and wallet/APoint payment, confirm, cancel, unlink.",
+      "path": "/skills/appotapay-ewallet/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "name": "appotapay-subscription",
+      "description": "Recurring billing: customers, payment methods, plans, cycles, refunds, and callbacks.",
+      "path": "/skills/appotapay-subscription/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "name": "appotapay-virtual-account",
+      "description": "Bank-transfer collection through AppotaPay virtual accounts (thu hộ / ebill) and its IPN.",
+      "path": "/skills/appotapay-virtual-account/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "name": "appotapay-firm-banking",
+      "description": "Interbank transfer out: beneficiary lookup, transfer, status, pending-result callback.",
+      "path": "/skills/appotapay-firm-banking/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "name": "appotapay-bill",
+      "description": "Utility bill payment: check bill info, pay, transaction status.",
+      "path": "/skills/appotapay-bill/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "name": "appotapay-mobile-topup",
+      "description": "Mobile airtime and data topup, product codes, subscriber info, transaction status.",
+      "path": "/skills/appotapay-mobile-topup/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "name": "appotapay-buy-card",
+      "description": "Buy prepaid card codes (thẻ game, thẻ điện thoại) and check transaction status.",
+      "path": "/skills/appotapay-buy-card/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "name": "appotapay-charging-card",
+      "description": "Scratch-card redemption (gạch thẻ) with its own SHA-256 signature and AES-128 code encryption.",
+      "path": "/skills/appotapay-charging-card/SKILL.md",
+      "version": "0.2.0"
+    },
+    {
+      "name": "appotapay-pos",
+      "description": "POS/QR terminal payments on the AppotaPay POS gateway, with the X-Signature header scheme.",
+      "path": "/skills/appotapay-pos/SKILL.md",
+      "version": "0.2.0"
     }
   ]
 }
