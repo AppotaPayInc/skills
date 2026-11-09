@@ -143,23 +143,6 @@ curl --location 'https://gateway.dev.appotapay.com/api/v2/transaction/refund' \
 
 #### REQUEST
 
-## Danh sách nhà cung cấp hỗ trợ refund
-
-| Vendor code | Thời gian hỗ trợ refund | Auto qua api | Refund một phần | Refund nhiều lần | Refund toàn phần | Time user nhận tiền |
-| --- | --- | --- | --- | --- | --- | --- |
-| Napas | 1 năm | Có | Có | Có |  | 5 - 7 ngày làm việc |
-| Vpbank Visa - Mastercard | 6 tháng | Có | Có | Có |  | 10 - 15 ngày làm việc |
-| VnptPay |  | Có | Không | Không | Có |  |
-| ONEPAY |  |  | Không | Không |  |  |
-| EBILL |  |  | Không | Không |  |  |
-| SHOPEE | 60 ngày | Có | Có | Có | Có | Real time |
-| MOCA | 1 tháng | Có | Không | Không | Có | Real time |
-| APPOTA WALLET |  | Có | Không | Không | Có | Real time |
-| ZaloPay | 180 ngày | Có | Có | Có | Có | Real time |
-| VA |  | Không | Không | Không |  |  |
-| VNpay |  | Có | Có | Không |  |  |
-| Cybersource | Không | Không | Không | Không | Không | Không |
-
 ## Bảng mã lỗi
 
 | Mã lỗi | Mô tả |
