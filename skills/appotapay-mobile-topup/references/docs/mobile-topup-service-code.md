@@ -22,5 +22,5 @@
 Chú ý:
 
 - Với các đầu số 0592 (nhà mạng Gtel) thì sẽ sử dụng gói topup của nhà mạng vinaphone
-- Với đầu số 0993, 0994, 0997, 0593, 0599(nhà mạng Gtel) thì sẽ sử dụng gói topup của nhà mạng mobifone
+- Với đầu số 0993, 0994, 0995, 0996, 0997, 0593, 0598, 0599(nhà mạng Gtel) thì sẽ sử dụng gói topup của nhà mạng mobifone
 - Với đầu số 087( nhà mạng iTel) thì sẽ sử dụng gói topup với các mã code của nhà mạng vinaphone

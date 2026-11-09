@@ -6,7 +6,8 @@
 
 > Phụ lục bảng mã lỗi
 
-Các mã lỗi bôi đỏ cần gọi API kiểm tra giao dịch để xác định trạng thái cuối của giao dịch
+- Các mã lỗi bôi đỏ cần gọi API kiểm tra giao dịch để xác định trạng thái cuối của giao dịch
+- Ở luồng nạp tiền bất đồng bộ, mã `34` và `35` trong response của API nạp tiền là xác nhận đã tiếp nhận giao dịch, các mã lỗi khác hãy kiểm tra và xử lý theo bảng mã bên dưới
 
 | Mã Lỗi | Mô tả |
 | --- | --- |
@@ -38,4 +39,5 @@ Các mã lỗi bôi đỏ cần gọi API kiểm tra giao dịch để xác đ�
 | 99 | Lỗi không xác định, vui lòng kiểm tra lại giao dịch sau |
 | 204 | Số điện thoại đã bị khoá hoặc chưa được kích hoạt |
 | 500 | Hệ thống gặp lỗi, vui lòng thử lại sau |
+| 1034 | Chưa cấu hình URL nhận IPN topup (luồng nạp tiền bất đồng bộ) |
 | 2106 | Mã sản phẩm không hợp lệ |

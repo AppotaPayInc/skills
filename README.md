@@ -112,6 +112,10 @@ Mechanism and URL scheme: `skills/appotapay/references/live-docs.md`.
 All content is derived from the official docs at **https://docs.appotapay.com**. When the docs and a
 skill disagree, the docs win — please open an issue/PR.
 
+## Contributing
+
+Adding a new product area or updating a skill after a docs change: see [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## License
 
 MIT.

@@ -74,9 +74,9 @@
     },
     {
       "name": "appotapay-mobile-topup",
-      "description": "Mobile airtime and data topup, product codes, subscriber info, transaction status.",
+      "description": "Mobile airtime and data topup (sync or async with IPN), product codes, subscriber info, transaction status.",
       "path": "/skills/appotapay-mobile-topup/SKILL.md",
-      "version": "0.2.0"
+      "version": "0.3.0"
     },
     {
       "name": "appotapay-buy-card",

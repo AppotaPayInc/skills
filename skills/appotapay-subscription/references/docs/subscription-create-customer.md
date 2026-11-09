@@ -34,10 +34,10 @@ Method: `POST`
 | --- | --- | --- | --- | --- |
 | customerRefId | required | String | Mã định danh cho customer được cung cấp bởi partner. Các request có customerRefId trùng nhau sẽ trả lỗi. | min:1, max: 50, format: alphanumeric |
 | customer | required | Object | Thông tin customer |  |
-| customer.firstName | required | String | Tên | min:1, max:50 |
-| customer.lastName | optional | String | Họ | min:1, max: 50 |
-| customer.mobileNumber | optional | String | Số điện thoại Format: +[Mã vùng][Số điện thoại] Ví dụ: +84919333777 | min:1, max:16, format: E.164 |
-| customer.email | optional | String | Email | min:1, max: 50 |
+| customer.firstName | required | String | Tên | min:1, max: 50, chỉ chấp nhận chữ cái không dấu (a-z, A-Z), số (0-9) và khoảng trắng; không chấp nhận ký tự đặc biệt, chữ có dấu hoặc ký tự ngoài bảng chữ cái Latin (VD: tiếng Nhật, tiếng Trung) |
+| customer.lastName | optional | String | Họ | min:1, max: 50, chỉ chấp nhận chữ cái không dấu (a-z, A-Z), số (0-9) và khoảng trắng; không chấp nhận ký tự đặc biệt, chữ có dấu hoặc ký tự ngoài bảng chữ cái Latin (VD: tiếng Nhật, tiếng Trung) |
+| customer.mobileNumber | Conditional, bắt buộc 1 trong 2 trường mobileNumber hoặc email | String | Số điện thoại Format: +[Mã vùng][Số điện thoại] Ví dụ: +84919333777 | min:1, max:16, format: E.164 |
+| customer.email | Conditional, bắt buộc 1 trong 2 trường mobileNumber hoặc email | String | Email | min:1, max: 50 |
 | customer.gender | optional | String | Giới tính - MALE: nam - FEMALE: nữ - OTHER: khác | in: MALE, FEMALE, OTHER |
 | customer.dateOfBirth | optional | String | Ngày sinh | format YYYY-MM-DD string |
 | customer.placeOfBirth | optional | String | Nơi sinh | max:50 |

@@ -33,8 +33,8 @@ Method: `PATCH`
 | Tham số | Yêu cầu | Kiểu dữ liệu | Mô tả | Validate |
 | --- | --- | --- | --- | --- |
 | customer | Required | Object | Thông tin khách hàng |  |
-| customer.firstName | Required | String | Tên khách hàng | min:1, max: 50 |
-| customer.lastName | Optional | String | Họ khách hàng | min:1, max: 50 |
+| customer.firstName | Required | String | Tên khách hàng | min:1, max: 50, chỉ chấp nhận chữ cái không dấu (a-z, A-Z), số (0-9) và khoảng trắng; không chấp nhận ký tự đặc biệt, chữ có dấu hoặc ký tự ngoài bảng chữ cái Latin (VD: tiếng Nhật, tiếng Trung) |
+| customer.lastName | Optional | String | Họ khách hàng | min:1, max: 50, chỉ chấp nhận chữ cái không dấu (a-z, A-Z), số (0-9) và khoảng trắng; không chấp nhận ký tự đặc biệt, chữ có dấu hoặc ký tự ngoài bảng chữ cái Latin (VD: tiếng Nhật, tiếng Trung) |
 | customer.mobileNumber | Optional | String | Số điện thoại Format: +[Mã vùng][Số điện thoại] Ví dụ: +84919333777 | min:1, max: 16, format: E.164 |
 | customer.email | Optional | String | Email | min:1, max: 50 |
 | customer.gender | Optional | String | Giới tính - MALE: nam - FEMALE: nữ - OTHER: khác | in: MALE, FEMALE, OTHER |
